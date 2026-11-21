@@ -58,7 +58,7 @@ class MCPChatBot:
             tools = (await session.list_tools()).tools
             for tool in tools:
                 if tool.name in self.tool_to_session:
-                    print(f"  ⚠️ Tool repetida ignorada: {tool.name} ({name})")
+                    print(f"  [aviso] Tool repetida ignorada: {tool.name} ({name})")
                     continue
                 self.tool_to_session[tool.name] = session
                 self.available_tools.append({
@@ -86,9 +86,9 @@ class MCPChatBot:
             except Exception:
                 pass
 
-            print(f"✅ {name}: {[t.name for t in tools]}")
+            print(f"[ok] {name}: {[t.name for t in tools]}")
         except Exception as e:
-            print(f"❌ Falha ao conectar em {name}: {e}")
+            print(f"[erro] Falha ao conectar em {name}: {e}")
 
     async def connect_to_servers(self) -> None:
         with open(CONFIG_PATH, encoding="utf-8") as f:
@@ -113,7 +113,7 @@ class MCPChatBot:
                 if block.type == "text":
                     print(block.text)
                 elif block.type == "tool_use":
-                    print(f"🔧 {block.name}({block.input})")
+                    print(f"-> {block.name}({block.input})")
                     session = self.tool_to_session[block.name]
                     result = await session.call_tool(block.name, arguments=block.input)
                     tool_results.append({

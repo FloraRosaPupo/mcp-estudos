@@ -1,4 +1,4 @@
-# 🐛 Pegadinhas que encontrei
+# Pegadinhas que encontrei
 
 | # | Onde | Problema | Correção |
 |---|---|---|---|

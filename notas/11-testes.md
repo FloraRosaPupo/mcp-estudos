@@ -135,17 +135,33 @@ Cenários cobertos em `test_chatbot.py`:
 | Vários servidores | Cada tool vai para a sessão certa |
 | Tools repetidas | A segunda é ignorada, sem quebrar a lista |
 
-## 6. Testes automáticos no GitHub
+## 6. Testes automáticos e guardrails no GitHub Actions
 
-O arquivo `.github/workflows/testes.yml` roda os testes a cada push e pull request:
+O arquivo `.github/workflows/testes.yml` roda a cada push na `main` e a cada pull request, em três etapas:
 
-```yaml
-- uses: astral-sh/setup-uv@v6
-- run: uv sync
-- run: uv run pytest -v
+```mermaid
+flowchart LR
+    P[push / PR] --> S["Segurança<br/>.env versionado? chaves vazadas? (gitleaks)"]
+    P --> L["Lint<br/>ruff check"]
+    S --> T["Testes<br/>pytest em Python 3.10 e 3.12"]
+    L --> T
 ```
 
-O selo no topo do README mostra se os testes estão passando.
+Os testes só rodam se a segurança e o lint passarem.
+
+| Guardrail | O que evita |
+|---|---|
+| `permissions: contents: read` | O token do workflow não consegue alterar o repositório, mesmo se uma action for comprometida |
+| Checagem de `.env` versionado | Subir sem querer o arquivo com a `ANTHROPIC_API_KEY` |
+| gitleaks | Chaves e tokens colados no código ou em qualquer commit do histórico |
+| ruff | Imports não usados, variáveis indefinidas e outros erros comuns |
+| Matriz de versões do Python | Código que só funciona na versão da sua máquina |
+| `timeout-minutes` | Um teste travado consumindo minutos do Actions |
+| `concurrency` | Execuções duplicadas: um novo push cancela a anterior |
+| Chave falsa no ambiente | Os testes nunca chamam a API real nem gastam tokens |
+| Dependabot (`.github/dependabot.yml`) | Dependências e actions desatualizadas, inclusive com falhas de segurança |
+
+O selo no topo do README mostra se tudo está passando.
 
 ## 7. O próximo nível: avaliação (evals) de agentes
 

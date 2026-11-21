@@ -1,4 +1,4 @@
-# 🔄 SDK Python: v1 × v2
+# SDK Python: v1 × v2
 
 Hoje, `pip install mcp` instala a **v2**. O código destas notas usa a **v1** (`mcp>=1.2,<2`).
 

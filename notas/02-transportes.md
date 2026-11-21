@@ -26,7 +26,7 @@ Regras:
 
 - Cada mensagem é **uma linha** de JSON (sem quebras de linha dentro).
 - O servidor lê do `stdin` e escreve no `stdout`.
-- ⚠️ **Nada além de mensagens MCP pode ir para o `stdout`.** Um `print("debug")` vira uma linha que não é JSON-RPC válido e quebra a comunicação. Logs vão para o `stderr`.
+- **Atenção:** nada além de mensagens MCP pode ir para o `stdout`. Um `print("debug")` vira uma linha que não é JSON-RPC válido e quebra a comunicação. Logs vão para o `stderr`.
 - O servidor vive enquanto o cliente viver: quando o host fecha, o subprocesso termina.
 
 Exemplo do que passa pelo cano quando o host pede a lista de tools:
@@ -95,7 +95,7 @@ Além dos POSTs, o cliente pode abrir um **GET** no mesmo endpoint e deixar um s
 
 Na versão do protocolo usada pelo curso, o servidor pode criar uma sessão no `initialize` e devolver um header `Mcp-Session-Id`, que o cliente repete em todas as requisições seguintes. Se o servidor responder 404 para esse ID, o cliente precisa iniciar uma sessão nova.
 
-> 🆕 Na spec 2026-07-28, sessões e o `Mcp-Session-Id` foram removidos, e as requisições HTTP passaram a levar os headers `Mcp-Method` e `Mcp-Name`. Ver [nota 10](10-alem-do-basico.md).
+> **Atualização:** Na spec 2026-07-28, sessões e o `Mcp-Session-Id` foram removidos, e as requisições HTTP passaram a levar os headers `Mcp-Method` e `Mcp-Name`. Ver [nota 10](10-alem-do-basico.md).
 
 ### Segurança
 
@@ -160,7 +160,7 @@ Ele foi **substituído pelo Streamable HTTP** na spec 2025-03-26. Ainda aparece 
 | Quem inicia o servidor | O cliente | Você ou a nuvem, antes de tudo |
 | Como o cliente acha o servidor | `command` + `args` | URL |
 | Clientes por servidor | 1 | Vários |
-| `print()` no stdout | ❌ Quebra o protocolo | ✅ Sem problema |
+| `print()` no stdout | Quebra o protocolo | Sem problema |
 | Autenticação | Variáveis de ambiente | OAuth 2.1 (recomendado) |
 | Exemplo | `uv run research_server.py` | `https://mcp.miro.com/` |
 

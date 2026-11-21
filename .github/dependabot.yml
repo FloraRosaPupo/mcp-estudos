@@ -1,0 +1,11 @@
+# Guardrail: abre PRs automáticos quando houver atualizações (inclusive de segurança)
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+  - package-ecosystem: uv
+    directory: /codigo
+    schedule:
+      interval: monthly

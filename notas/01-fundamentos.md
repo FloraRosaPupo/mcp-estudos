@@ -151,7 +151,7 @@ sequenceDiagram
 
 As **capacidades** trocadas no `initialize` dizem o que cada lado suporta. Por exemplo, um servidor que só tem tools não anuncia `resources`, e o cliente sabe que não deve chamar `resources/list`.
 
-> 🆕 Na spec **2026-07-28**, o handshake `initialize`/`initialized` e o header `Mcp-Session-Id` foram removidos: cada requisição carrega a versão e as capacidades, e o protocolo ficou **stateless**. O curso e o código destas notas usam a versão anterior (SDK v1). Detalhes na [nota 10](10-alem-do-basico.md).
+> **Atualização:** Na spec **2026-07-28**, o handshake `initialize`/`initialized` e o header `Mcp-Session-Id` foram removidos: cada requisição carrega a versão e as capacidades, e o protocolo ficou **stateless**. O curso e o código destas notas usam a versão anterior (SDK v1). Detalhes na [nota 10](10-alem-do-basico.md).
 
 ## 6. Exemplo completo, do começo ao fim
 

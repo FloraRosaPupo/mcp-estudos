@@ -6,3 +6,4 @@ codigo/papers/
 codigo/workspace/*
 !codigo/workspace/.gitkeep
 .pytest_cache/
+.ruff_cache/

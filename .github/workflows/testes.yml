@@ -2,17 +2,71 @@ name: Testes
 
 on:
   push:
+    branches: [main]
   pull_request:
+  workflow_dispatch:
+
+# Guardrail: o token do workflow só pode LER o repositório
+permissions:
+  contents: read
+
+# Guardrail: um novo push cancela a execução anterior do mesmo branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  pytest:
+  seguranca:
+    name: Segredos e arquivos sensíveis
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # o gitleaks analisa todo o histórico
+      - name: Nenhum .env versionado
+        run: |
+          if git ls-files | grep -E '(^|/)\.env$'; then
+            echo "::error::Arquivo .env versionado. Remova e use o .env.example."
+            exit 1
+          fi
+      - name: Procurar chaves e tokens vazados (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     defaults:
       run:
         working-directory: codigo
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
+      - name: ruff check
+        run: uvx ruff check --output-format=github .
+
+  pytest:
+    name: Testes (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [seguranca, lint]
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.12"]
+    defaults:
+      run:
+        working-directory: codigo
+    env:
+      ANTHROPIC_API_KEY: chave-falsa-para-testes   # os testes nunca chamam a API de verdade
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
       - name: Instalar dependências
         run: uv sync
       - name: Rodar testes

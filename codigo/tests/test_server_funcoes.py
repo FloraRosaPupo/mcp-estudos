@@ -7,7 +7,6 @@ import json
 
 import research_server as rs
 
-
 # ───────────────────── search_papers ─────────────────────
 
 def test_search_papers_devolve_ids(papers_dir, fake_arxiv):

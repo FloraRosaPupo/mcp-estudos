@@ -1,14 +1,14 @@
-# 🔌 MCP: minhas anotações de estudo
+# MCP: minhas anotações de estudo
 
 [![Testes](https://github.com/FloraRosaPupo/mcp-estudos/actions/workflows/testes.yml/badge.svg)](https://github.com/FloraRosaPupo/mcp-estudos/actions/workflows/testes.yml)
 
-Anotações pessoais, em português, sobre o **Model Context Protocol (MCP)**, feitas enquanto eu estudava o curso [MCP: Build Rich-Context AI Apps with Anthropic](https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/) (DeepLearning.AI).
+Anotações pessoais, em português, sobre o **Model Context Protocol (MCP)**, feitas enquanto eu estudava os cursos [MCP: Build Rich-Context AI Apps with Anthropic](https://www.deeplearning.ai/courses/mcp-build-rich-context-ai-apps-with-anthropic) (DeepLearning.AI) e [Model Context Protocol: Advanced Topics](https://anthropic.skilljar.com/model-context-protocol-advanced-topics) (Anthropic Academy).
 
 Cada nota tem **fluxograma** e **exemplo**, e separa o que é **obrigatório** pelo protocolo do que é só **convenção** ou **específico do exemplo**.
 
-> ⚠️ Este repositório **não** reproduz o material do curso. São resumos com as minhas palavras, diagramas próprios e código reescrito/corrigido. Para o conteúdo completo, faça o curso oficial.
+> Este repositório **não** reproduz o material dos cursos. São resumos com as minhas palavras, diagramas próprios e código reescrito e corrigido. Para o conteúdo completo, faça os cursos oficiais.
 
-## 🗺️ Visão geral
+## Visão geral
 
 ```mermaid
 flowchart LR
@@ -19,7 +19,7 @@ flowchart LR
 
 O MCP padroniza como aplicações de IA se conectam a ferramentas e dados: você escreve um servidor uma vez e ele funciona em qualquer host compatível (Claude Desktop, IDEs, seu próprio chatbot).
 
-## 📚 Notas
+## Notas
 
 | # | Nota | O que cobre |
 |---|---|---|
@@ -36,10 +36,10 @@ O MCP padroniza como aplicações de IA se conectam a ferramentas e dados: você
 | 11 | [Testando servidores e agentes MCP](notas/11-testes.md) | Testes de unidade, de protocolo, de integração e avaliação (evals) |
 
 Extras:
-- 🐛 [Pegadinhas que encontrei](notas/pegadinhas.md)
-- 🔄 [SDK Python v1 × v2](notas/sdk-v1-vs-v2.md)
+- [Pegadinhas que encontrei](notas/pegadinhas.md)
+- [SDK Python v1 × v2](notas/sdk-v1-vs-v2.md)
 
-## 💻 Código
+## Código
 
 Versões revisadas do servidor e do chatbot, com as correções descritas nas notas.
 
@@ -95,13 +95,13 @@ São 36 testes, em 4 camadas, e nenhum precisa de internet nem de chave de API (
 | [`test_stdio.py`](codigo/tests/test_stdio.py) | O servidor rodando de verdade como subprocesso, via stdio |
 | [`test_chatbot.py`](codigo/tests/test_chatbot.py) | O loop do chatbot com o Claude simulado: tools em paralelo, várias rodadas, erros, roteamento entre servidores |
 
-Os testes rodam automaticamente a cada push, pelo GitHub Actions. Explicação completa na [nota 11](notas/11-testes.md).
+A cada push e pull request, o GitHub Actions roda os testes com guardrails: checagem de `.env` versionado, busca de chaves vazadas (gitleaks), lint (ruff), permissões só de leitura e testes em Python 3.10 e 3.12. O Dependabot avisa quando há atualizações. Explicação completa na [nota 11](notas/11-testes.md).
 
 > O código usa o **SDK v1** (`mcp<2`), o mesmo do curso. Veja [SDK v1 × v2](notas/sdk-v1-vs-v2.md) para migrar. O `fetch` e o `filesystem` do `server_config.json` precisam de `uvx` e `npx` (Node.js) instalados.
 
-## 🔗 Referências
+## Referências
 
-- [Curso: MCP: Build Rich-Context AI Apps with Anthropic](https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/)
+- [Curso: MCP: Build Rich-Context AI Apps with Anthropic](https://www.deeplearning.ai/courses/mcp-build-rich-context-ai-apps-with-anthropic)
 - [Curso: Model Context Protocol: Advanced Topics (Anthropic Academy)](https://anthropic.skilljar.com/model-context-protocol-advanced-topics)
 - [Documentação oficial do MCP](https://modelcontextprotocol.io)
 - [SDK Python](https://github.com/modelcontextprotocol/python-sdk) · [Guia de migração v1 → v2](https://py.sdk.modelcontextprotocol.io/migration/)

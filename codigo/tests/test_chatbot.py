@@ -10,9 +10,9 @@ import sys
 from types import SimpleNamespace as NS
 
 import pytest
+from test_stdio import SERVIDOR
 
 from mcp_chatbot import MCPChatBot
-from test_stdio import SERVIDOR
 
 pytestmark = pytest.mark.anyio
 
