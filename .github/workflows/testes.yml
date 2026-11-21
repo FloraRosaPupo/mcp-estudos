@@ -44,7 +44,7 @@ jobs:
         working-directory: codigo
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v7
       - name: ruff check
         run: uvx ruff check --output-format=github .
 
@@ -64,7 +64,7 @@ jobs:
       ANTHROPIC_API_KEY: chave-falsa-para-testes   # os testes nunca chamam a API de verdade
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python }}
       - name: Instalar dependências
