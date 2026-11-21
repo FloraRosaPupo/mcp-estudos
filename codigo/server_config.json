@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "research": {
+      "command": "uv",
+      "args": ["run", "research_server.py"]
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": ["--with", "mcp<2", "mcp-server-fetch"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "./workspace"]
+    }
+  }
+}

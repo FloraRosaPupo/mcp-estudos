@@ -1,0 +1,7 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+codigo/papers/
+codigo/workspace/*
+!codigo/workspace/.gitkeep
