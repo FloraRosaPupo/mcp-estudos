@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0            # o gitleaks analisa todo o histórico
       - name: Nenhum .env versionado
@@ -43,7 +43,7 @@ jobs:
       run:
         working-directory: codigo
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v6
       - name: ruff check
         run: uvx ruff check --output-format=github .
@@ -63,7 +63,7 @@ jobs:
     env:
       ANTHROPIC_API_KEY: chave-falsa-para-testes   # os testes nunca chamam a API de verdade
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python }}
